@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	9.91
-Release:	1
+Release:	2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -17,23 +17,25 @@ Requires:	system-release-notes >= 8
 # instead of explicitly asked for
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
+Conflicts:	fedora-release
 
 %description
 Generic release files such as yum configs and various /etc/ files that
 define the release. This package explicitly is a replacement for the 
-fedora-release package, if you are unable for any reason to abide by the 
-trademark restrictions on the fedora-release package.
+trademarked release package, if you are unable for any reason to abide by the 
+trademark restrictions on that release package.
 
 %package notes
 Summary:	Release Notes
 License:	Open Publication
 Group:		System Environment/Base
 Provides:	system-release-notes = %{version}-%{release}
+Conflicts:	fedora-release-notes
 
 %description notes
 Generic release notes package. This package explicitly is a replacement 
-for the fedora-release-notes package, if you are unable for any reason
-to abide by the trademark restrictions on the fedora-release-notes 
+for the trademarked release-notes package, if you are unable for any reason
+to abide by the trademark restrictions on that release-notes 
 package. Please note that there is no actual useful content here.
 
 
@@ -115,5 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Mon Sep 22 2008 Tom "spot" Callaway <tcallawa@redhat.com> 9.91-2
+- add Conflicts
+- further sanitize descriptions
+
 * Mon Sep 22 2008 Tom "spot" Callaway <tcallawa@redhat.com> 9.91-1
 - initial package for generic-release and generic-release-notes
