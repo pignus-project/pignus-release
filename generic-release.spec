@@ -1,9 +1,9 @@
 %define release_name Generic
-%define dist_version 10
+%define dist_version 11
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	10
+Version:	10.90
 Release:	1
 License:	GPLv2
 Group:		System Environment/Base
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Thu Nov 20 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10.90-1
+- 10.90
+
 * Thu Nov 20 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10-1
 - Bump to 10, update repos
 
