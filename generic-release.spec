@@ -3,8 +3,8 @@
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	9.91
-Release:	2
+Version:	10
+Release:	1
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Thu Nov 20 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10-1
+- Bump to 10, update repos
+
 * Mon Sep 22 2008 Tom "spot" Callaway <tcallawa@redhat.com> 9.91-2
 - add Conflicts
 - further sanitize descriptions
