@@ -4,17 +4,13 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	10.90
-Release:	1
+Release:	2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
 Obsoletes:	redhat-release
 Provides:	redhat-release = %{version}-%{release}
 Provides:	system-release = %{version}-%{release}
-Requires:	system-release-notes >= 8
-# We require release notes to make sure that they don't get dropped during
-# upgrades, and just because we always want the release notes available
-# instead of explicitly asked for
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 Conflicts:	fedora-release
@@ -117,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Fri Jan 30 2009 Tom "spot" Callaway <tcallawa@redhat.com> 10.90-2
+- drop Requires: system-release-notes
+
 * Thu Nov 20 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10.90-1
 - 10.90
 
