@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	10.90
-Release:	2
+Release:	3
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Fri Jan 30 2009 Tom "spot" Callaway <tcallawa@redhat.com> 10.90-2
 - drop Requires: system-release-notes
 
