@@ -1,10 +1,10 @@
 %define release_name Generic
-%define dist_version 11
+%define dist_version 12
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	10.90
-Release:	3
+Version:	11.90
+Release:	1
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -62,20 +62,13 @@ pushd $RPM_BUILD_ROOT/etc/pki/rpm-gpg/
 for arch in i386 x86_64 ppc ppc64
   do
   ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora-$arch
-  ln -s RPM-GPG-KEY-fedora-test-%{dist_version}-primary RPM-GPG-KEY-fedora-test-$arch
 done
 ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora
-ln -s RPM-GPG-KEY-fedora-test-%{dist_version}-primary RPM-GPG-KEY-fedora-test
 popd
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/yum.repos.d
 for file in fedora*repo ; do
   install -m 644 $file $RPM_BUILD_ROOT/etc/yum.repos.d
-done
-
-install -d -m 755 $RPM_BUILD_ROOT/%{_datadir}/%{name}
-for file in compose/*; do
-  install -m 644 $file $RPM_BUILD_ROOT/%{_datadir}/%{name}
 done
 
 # Set up the dist tag macros
@@ -103,8 +96,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
 %config %attr(0644,root,root) /etc/rpm/macros.dist
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*
 %dir /etc/pki/rpm-gpg
 /etc/pki/rpm-gpg/*
 
@@ -113,6 +104,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Wed May 20 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 11.90-1
+- Build for F12 collection
+
+* Wed May 20 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 11-1
+- resync with fedora-release package
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
