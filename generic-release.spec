@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	11.90
-Release:	1
+Release:	2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.Generic-Release-Notes
 
 %changelog
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 11.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed May 20 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 11.90-1
 - Build for F12 collection
 
