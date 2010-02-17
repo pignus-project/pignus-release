@@ -1,10 +1,10 @@
 %define release_name Generic
-%define dist_version 12
+%define dist_version 14
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	12
-Release:	1
+Version:	14
+Release:	0.1
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -20,6 +20,14 @@ Generic release files such as yum configs and various /etc/ files that
 define the release. This package explicitly is a replacement for the 
 trademarked release package, if you are unable for any reason to abide by the 
 trademark restrictions on that release package.
+
+%package rawhide
+Summary:        Rawhide repo definitions
+Requires:	generic-release-%{version}-%{release}
+Conflicts:	fedora-release-rawhide
+
+%description rawhide
+This package provides the rawhide repo definitions.
 
 %package notes
 Summary:	Release Notes
@@ -92,7 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 /etc/system-release
 %config %attr(0644,root,root) /etc/system-release-cpe
 %dir /etc/yum.repos.d
-%config(noreplace) /etc/yum.repos.d/*
+%config(noreplace) /etc/yum.repos.d/fedora.repo
+%config(noreplace) /etc/yum.repos.d/fedora-updates*.repo
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
 %config %attr(0644,root,root) /etc/rpm/macros.dist
@@ -103,7 +112,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc README.Generic-Release-Notes
 
+%files rawhide
+%defattr(-,root,root,-)
+%config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
+
 %changelog
+* Wed Feb 17 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 14-0.1
+- update to sync with fedora-release
+
 * Mon Nov 16 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 12-1
 - Update for F12 final
 
