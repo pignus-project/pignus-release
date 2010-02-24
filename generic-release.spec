@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	14
-Release:	0.1
+Release:	0.2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -23,7 +23,7 @@ trademark restrictions on that release package.
 
 %package rawhide
 Summary:        Rawhide repo definitions
-Requires:	generic-release-%{version}-%{release}
+Requires:	generic-release = %{version}-%{release}
 Conflicts:	fedora-release-rawhide
 
 %description rawhide
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Wed Feb 24 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 14-0.2
+- fix broken requires
+
 * Wed Feb 17 2010 Tom "spot" Callaway <tcallawa@redhat.com> - 14-0.1
 - update to sync with fedora-release
 
