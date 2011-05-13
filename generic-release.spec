@@ -1,10 +1,10 @@
 %define release_name Generic
-%define dist_version 15
+%define dist_version 16
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	15
-Release:	1
+Version:	16
+Release:	0.1
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -121,6 +121,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Fri May 13 2011 Tom Callaway <spot@fedoraproject.org> - 16-0.1
+- initial 16
+
 * Fri May 13 2011 Tom Callaway <spot@fedoraproject.org> - 15-1
 - sync to f15 final
 
