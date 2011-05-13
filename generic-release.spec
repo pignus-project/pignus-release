@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	15
-Release:	0.4
+Release:	1
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -121,6 +121,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Fri May 13 2011 Tom Callaway <spot@fedoraproject.org> - 15-1
+- sync to f15 final
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 15-0.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
