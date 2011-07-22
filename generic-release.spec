@@ -4,14 +4,15 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	16
-Release:	0.1
+Release:	0.2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
 Obsoletes:	redhat-release
 Provides:	redhat-release = %{version}-%{release}
 Provides:	system-release = %{version}-%{release}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+# Comment this out if we're building for a non-rawhide target
+Requires:	generic-release-rawhide = %{version}-%{release}
 BuildArch:	noarch
 Conflicts:	fedora-release
 
@@ -121,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Fri Jul 22 2011 Tom Callaway <spot@fedoraproject.org> - 16-0.2
+- require -rawhide subpackage if we're built for rawhide
+
 * Fri May 13 2011 Tom Callaway <spot@fedoraproject.org> - 16-0.1
 - initial 16
 
