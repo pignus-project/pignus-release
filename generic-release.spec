@@ -1,9 +1,9 @@
 %define release_name Generic
-%define dist_version 16
+%define dist_version 17
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	16
+Version:	17
 Release:	0.2
 License:	GPLv2
 Group:		System Environment/Base
@@ -122,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Fri Oct 28 2011 Tom Callaway <spot@fedoraproject.org> - 17-0.2
+- initial 17
+
 * Fri Jul 22 2011 Tom Callaway <spot@fedoraproject.org> - 16-0.2
 - require -rawhide subpackage if we're built for rawhide
 
