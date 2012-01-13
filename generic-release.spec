@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	17
-Release:	0.2
+Release:	0.3
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -122,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17-0.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Fri Oct 28 2011 Tom Callaway <spot@fedoraproject.org> - 17-0.2
 - initial 17
 
