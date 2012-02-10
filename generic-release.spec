@@ -1,10 +1,10 @@
 %define release_name Generic
-%define dist_version 17
+%define dist_version 18
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	17
-Release:	0.3
+Version:	18
+Release:	0.2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -61,6 +61,15 @@ echo >> $RPM_BUILD_ROOT/etc/issue
 ln -s fedora-release $RPM_BUILD_ROOT/etc/redhat-release
 ln -s fedora-release $RPM_BUILD_ROOT/etc/system-release
 
+cat << EOF >>$RPM_BUILD_ROOT/etc/os-release
+NAME=Generic
+VERSION="%{version} (%{release_name})"
+ID=generic
+VERSION_ID=%{version}
+PRETTY_NAME="Generic %{version} (%{release_name})"
+ANSI_COLOR=0;34
+EOF
+
 install -d -m 755 $RPM_BUILD_ROOT/etc/pki/rpm-gpg
 
 install -m 644 RPM-GPG-KEY* $RPM_BUILD_ROOT/etc/pki/rpm-gpg/
@@ -73,9 +82,9 @@ for arch in i386 x86_64
   ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora-$arch
 done
 ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora
-for arch in sparc sparc64
+for arch in arm armhfp arm64 ppc ppc64 s390 s390x sparc sparc64
   do
-  ln -s RPM-GPG-KEY-fedora-%{dist_version}-SPARC RPM-GPG-KEY-fedora-$arch
+  ln -s RPM-GPG-KEY-fedora-%{dist_version}-secondary RPM-GPG-KEY-fedora-$arch
 done
 popd
 
@@ -100,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc GPL 
+%config %attr(0644,root,root) /etc/os-release
 %config %attr(0644,root,root) /etc/fedora-release
 /etc/redhat-release
 /etc/system-release
@@ -122,6 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Fri Feb 10 2012 Tom Callaway <spot@fedoraproject.org> - 18-0.2
+- sync with fedora-release model
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17-0.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
