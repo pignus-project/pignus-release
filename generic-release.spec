@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	18
-Release:	0.2
+Release:	0.3
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -132,6 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 18-0.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Fri Feb 10 2012 Tom Callaway <spot@fedoraproject.org> - 18-0.2
 - sync with fedora-release model
 
