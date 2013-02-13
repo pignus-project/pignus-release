@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	19
-Release:	0.1
+Release:	0.2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -132,6 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 19-0.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Fri Oct 19 2012 Tom Callaway <spot@fedoraproject.org> - 19-0.1
 - sync to 19-0.1
 
