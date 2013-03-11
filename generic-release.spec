@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	19
-Release:	0.2
+Release:	0.3
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -119,7 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-updates*.repo
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
-%config %attr(0644,root,root) /etc/rpm/macros.dist
+%attr(0644,root,root) /etc/rpm/macros.dist
 %dir /etc/pki/rpm-gpg
 /etc/pki/rpm-gpg/*
 
@@ -132,6 +132,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Mon Mar 11 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 19-0.3
+- Remove %%config from %%{_sysconfdir}/rpm/macros.*
+  (https://fedorahosted.org/fpc/ticket/259).
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 19-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
