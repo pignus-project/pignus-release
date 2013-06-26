@@ -1,10 +1,10 @@
 %define release_name Generic
-%define dist_version 19
+%define dist_version 20
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	19
-Release:	2
+Version:	20
+Release:	0.1
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -133,6 +133,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Wed Jun 26 2013 Tom Callaway <spot@fedoraproject.org> - 20-0.1
+- sync
+
 * Wed Jun 26 2013 Tom Callaway <spot@fedoraproject.org> - 19-2
 - sync to release
 
