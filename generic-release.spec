@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	19
-Release:	0.3
+Release:	2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -53,7 +53,7 @@ package. Please note that there is no actual useful content here.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc
 echo "Generic release %{version} (%{release_name})" > $RPM_BUILD_ROOT/etc/fedora-release
-echo "cpe://o:generic:generic:%{version}" > $RPM_BUILD_ROOT/etc/system-release-cpe
+echo "cpe:/o:generic:generic:%{version}" > $RPM_BUILD_ROOT/etc/system-release-cpe
 cp -p $RPM_BUILD_ROOT/etc/fedora-release $RPM_BUILD_ROOT/etc/issue
 echo "Kernel \r on an \m (\l)" >> $RPM_BUILD_ROOT/etc/issue
 cp -p $RPM_BUILD_ROOT/etc/issue $RPM_BUILD_ROOT/etc/issue.net
@@ -68,6 +68,7 @@ ID=generic
 VERSION_ID=%{version}
 PRETTY_NAME="Generic %{version} (%{release_name})"
 ANSI_COLOR="0;34"
+CPE_NAME="cpe:/o:generic:generic:%{version}"
 EOF
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/pki/rpm-gpg
@@ -82,7 +83,7 @@ for arch in i386 x86_64
   ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora-$arch
 done
 ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora
-for arch in arm armhfp arm64 ppc ppc64 s390 s390x sparc sparc64
+for arch in arm armhfp aarch64 ppc ppc64 s390 s390x
   do
   ln -s RPM-GPG-KEY-fedora-%{dist_version}-secondary RPM-GPG-KEY-fedora-$arch
 done
@@ -132,6 +133,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Wed Jun 26 2013 Tom Callaway <spot@fedoraproject.org> - 19-2
+- sync to release
+
 * Mon Mar 11 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 19-0.3
 - Remove %%config from %%{_sysconfdir}/rpm/macros.*
   (https://fedorahosted.org/fpc/ticket/259).
