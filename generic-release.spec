@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	20
-Release:	0.1
+Release:	0.2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -133,6 +133,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20-0.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Wed Jun 26 2013 Tom Callaway <spot@fedoraproject.org> - 20-0.1
 - sync
 
