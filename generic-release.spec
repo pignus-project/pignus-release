@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	21
-Release:	1
+Release:	2
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -46,7 +46,8 @@ package. Please note that there is no actual useful content here.
 
 
 %prep
-%setup -q
+# Work around for incorrect prefix upstream
+%setup -q -n generic-21
 
 %build
 
@@ -134,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Sun Jan 05 2014 Bruno Wolff III <bruno@wolff.to> - 21-2
+- Work around incorrect prefix in the upstream tarball
+
 * Sun Jan 05 2014 Bruno Wolff III <bruno@wolff.to> - 21-1
 - Bump version to match current rawhide
 
