@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	21
-Release:	2
+Release:	3
 License:	GPLv2
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -97,8 +97,8 @@ for file in fedora*repo ; do
 done
 
 # Set up the dist tag macros
-install -d -m 755 $RPM_BUILD_ROOT/etc/rpm
-cat >> $RPM_BUILD_ROOT/etc/rpm/macros.dist << EOF
+install -d -m 755 $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d
+cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
 # dist macros.
 
 %%fedora		%{dist_version}
@@ -122,7 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-updates*.repo
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
-%attr(0644,root,root) /etc/rpm/macros.dist
+%attr(0644,root,root) %{_rpmconfigdir}/macros.d/macros.dist
 %dir /etc/pki/rpm-gpg
 /etc/pki/rpm-gpg/*
 
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Sun Mar 09 2014 Bruno Wolff III <bruno@wolff.to> - 21-3
+- Install dist macro into the correct directory
+
 * Sun Jan 05 2014 Bruno Wolff III <bruno@wolff.to> - 21-2
 - Work around incorrect prefix in the upstream tarball
 
