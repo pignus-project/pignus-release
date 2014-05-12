@@ -4,8 +4,8 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	21
-Release:	3
-License:	GPLv2
+Release:	4
+License:	MIT
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
 Obsoletes:	redhat-release
@@ -111,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc GPL 
+%doc LICENSE README.license
 %config %attr(0644,root,root) /etc/os-release
 %config %attr(0644,root,root) /etc/fedora-release
 /etc/redhat-release
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Mon May 12 2014 Tom Callaway <spot@fedoraproject.org> - 21-4
+- license changes and clarification doc
+
 * Sun Mar 09 2014 Bruno Wolff III <bruno@wolff.to> - 21-3
 - Install dist macro into the correct directory
 
