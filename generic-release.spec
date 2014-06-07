@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	21
-Release:	4
+Release:	5
 License:	MIT
 Group:		System Environment/Base
 Source:		%{name}-%{version}.tar.gz
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 21-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon May 12 2014 Tom Callaway <spot@fedoraproject.org> - 21-4
 - license changes and clarification doc
 
