@@ -1,19 +1,22 @@
 %define release_name Generic
-%define dist_version 21
+%define dist_version 22
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	21
-Release:	5
+Version:	22
+Release:	0.1
 License:	MIT
 Group:		System Environment/Base
-Source:		%{name}-%{version}.tar.gz
+Source1:        README.developers
+Source2:        README.Generic-Release-Notes
 Obsoletes:	redhat-release
 Provides:	redhat-release
 Provides:	system-release
 Provides:	system-release(release) = %{version}
 # Comment this out if we're building for a non-rawhide target
-Requires:	generic-release-rawhide = %{version}-%{release}
+Requires:	fedora-repos-rawhide
+Requires:       fedora-repos
+Obsoletes:      generic-release-rawhide <= 21-5
 BuildArch:	noarch
 Conflicts:	fedora-release
 
@@ -22,14 +25,6 @@ Generic release files such as yum configs and various /etc/ files that
 define the release. This package explicitly is a replacement for the 
 trademarked release package, if you are unable for any reason to abide by the 
 trademark restrictions on that release package.
-
-%package rawhide
-Summary:        Rawhide repo definitions
-Requires:	generic-release = %{version}-%{release}
-Conflicts:	fedora-release-rawhide
-
-%description rawhide
-This package provides the rawhide repo definitions.
 
 %package notes
 Summary:	Release Notes
@@ -46,8 +41,6 @@ package. Please note that there is no actual useful content here.
 
 
 %prep
-# Work around for incorrect prefix upstream
-%setup -q -n generic-21
 
 %build
 
@@ -73,29 +66,6 @@ ANSI_COLOR="0;34"
 CPE_NAME="cpe:/o:generic:generic:%{version}"
 EOF
 
-install -d -m 755 $RPM_BUILD_ROOT/etc/pki/rpm-gpg
-
-install -m 644 RPM-GPG-KEY* $RPM_BUILD_ROOT/etc/pki/rpm-gpg/
-
-# Install all the keys, link the primary keys to primary arch files
-# and to compat generic location
-pushd $RPM_BUILD_ROOT/etc/pki/rpm-gpg/
-for arch in i386 x86_64
-  do
-  ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora-$arch
-done
-ln -s RPM-GPG-KEY-fedora-%{dist_version}-primary RPM-GPG-KEY-fedora
-for arch in arm armhfp aarch64 ppc ppc64 s390 s390x
-  do
-  ln -s RPM-GPG-KEY-fedora-%{dist_version}-secondary RPM-GPG-KEY-fedora-$arch
-done
-popd
-
-install -d -m 755 $RPM_BUILD_ROOT/etc/yum.repos.d
-for file in fedora*repo ; do
-  install -m 644 $file $RPM_BUILD_ROOT/etc/yum.repos.d
-done
-
 # Set up the dist tag macros
 install -d -m 755 $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d
 cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
@@ -117,24 +87,18 @@ rm -rf $RPM_BUILD_ROOT
 /etc/redhat-release
 /etc/system-release
 %config %attr(0644,root,root) /etc/system-release-cpe
-%dir /etc/yum.repos.d
-%config(noreplace) /etc/yum.repos.d/fedora.repo
-%config(noreplace) /etc/yum.repos.d/fedora-updates*.repo
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
 %attr(0644,root,root) %{_rpmconfigdir}/macros.d/macros.dist
-%dir /etc/pki/rpm-gpg
-/etc/pki/rpm-gpg/*
 
 %files notes
 %defattr(-,root,root,-)
 %doc README.Generic-Release-Notes
 
-%files rawhide
-%defattr(-,root,root,-)
-%config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
-
 %changelog
+* Thu Aug 07 2014 Dennis Gilmore <dennis@ausil.us> - 22-0.1
+- setup for f22, Require fedora-repos and no longer ship repo files
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
