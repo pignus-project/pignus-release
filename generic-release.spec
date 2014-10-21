@@ -109,6 +109,8 @@ package. Please note that there is no actual useful content here.
 
 
 %prep
+%setup -c -T
+cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE4} .
 
 %build
 
