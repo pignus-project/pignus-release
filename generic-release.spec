@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	22
-Release:	0.2
+Release:	0.3
 License:	MIT
 Group:		System Environment/Base
 Source0:	LICENSE
@@ -15,11 +15,11 @@ Source4:	README.license
 Obsoletes:	redhat-release
 Provides:	redhat-release
 Provides:	system-release
-Provides:	system-release(release) = %{version}
+Provides:	system-release(%{version})
 Requires:       system-release-product
 # Comment this next Requires out if we're building for a non-rawhide target
 Requires:	fedora-repos-rawhide
-Requires:	fedora-repos
+Requires:	fedora-repos(%{version})
 Obsoletes:	generic-release-rawhide <= 21-5
 BuildArch:	noarch
 Conflicts:	fedora-release
@@ -188,6 +188,9 @@ rm -rf $RPM_BUILD_ROOT
 %license LICENSE
 
 %changelog
+* Tue Oct 21 2014 Tom Callaway <spot@fedoraproject.org> - 22-0.3
+- add versioned provide for system-release(VERSION)
+
 * Tue Oct 21 2014 Tom Callaway <spot@fedoraproject.org> - 22-0.2
 - add productization (it is the foooooture)
 
