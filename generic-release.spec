@@ -11,6 +11,7 @@ Source0:	LICENSE
 Source1:	README.developers
 Source2:	README.Generic-Release-Notes
 Source3:	80-server.preset
+Source4:	README.license
 Obsoletes:	redhat-release
 Provides:	redhat-release
 Provides:	system-release
@@ -146,7 +147,7 @@ EOF
 # Add Product-specific presets
 mkdir -p %{buildroot}%{_prefix}/lib/systemd/system-preset/
 # Fedora Server
-install -m 0644 %{SOURCE1} %{buildroot}%{_prefix}/lib/systemd/system-preset/80-server.preset
+install -m 0644 %{SOURCE3} %{buildroot}%{_prefix}/lib/systemd/system-preset/80-server.preset
 
 %clean
 rm -rf $RPM_BUILD_ROOT
