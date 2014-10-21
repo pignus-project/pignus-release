@@ -1,22 +1,25 @@
 %define release_name Generic
-%define dist_version 22
+%define dist_version 21
 
 Summary:	Generic release files
 Name:		generic-release
 Version:	22
-Release:	0.1
+Release:	0.2
 License:	MIT
 Group:		System Environment/Base
-Source1:        README.developers
-Source2:        README.Generic-Release-Notes
+Source0:	LICENSE
+Source1:	README.developers
+Source2:	README.Generic-Release-Notes
+Source3:	80-server.preset
 Obsoletes:	redhat-release
 Provides:	redhat-release
 Provides:	system-release
 Provides:	system-release(release) = %{version}
-# Comment this out if we're building for a non-rawhide target
-Requires:	fedora-repos-rawhide
-Requires:       fedora-repos
-Obsoletes:      generic-release-rawhide <= 21-5
+Requires:       system-release-product
+# Comment this next Requires out if we're building for a non-rawhide target
+# Requires:	fedora-repos-rawhide
+Requires:	fedora-repos
+Obsoletes:	generic-release-rawhide <= 21-5
 BuildArch:	noarch
 Conflicts:	fedora-release
 
@@ -25,6 +28,70 @@ Generic release files such as yum configs and various /etc/ files that
 define the release. This package explicitly is a replacement for the 
 trademarked release package, if you are unable for any reason to abide by the 
 trademark restrictions on that release package.
+
+%package nonproduct
+Summary:        Base package for non-product-specific default configurations
+Provides:       system-release-nonproduct
+Provides:       system-release-nonproduct(%{version})
+Provides:       system-release-product
+# turned out to be a bad name
+Requires:       generic-release = %{version}-%{release}
+Conflicts:      generic-release-cloud
+Conflicts:      generic-release-server
+Conflicts:      generic-release-workstation
+
+%description nonproduct
+ITS NOT A PRODUCT. Er, em, what I meant to say was: This package 
+provides a base package for non-product-specific configuration files to
+depend on.
+
+%package cloud
+Summary:        Base package for Generic Cloud-specific default configurations
+Provides:       system-release-cloud
+Provides:       system-release-cloud(%{version})
+Provides:       system-release-product
+Requires:       generic-release = %{version}-%{release}
+Conflicts:      generic-release-server
+Conflicts:      generic-release-nonproduct
+Conflicts:      generic-release-workstation
+
+%description cloud
+Provides a base package for Generic Cloud-specific configuration files to
+depend on.
+
+%package server
+Summary:        Base package for Generic Server-specific default configurations
+Provides:       system-release-server
+Provides:       system-release-server(%{version})
+Provides:       system-release-product
+Requires:       generic-release = %{version}-%{release}
+#Inheriting Fedora's Requires. You don't like em? Make your own -release-server package.
+Requires:       systemd
+Requires:       cockpit
+Requires:       rolekit
+Requires(post): sed
+Requires(post): systemd
+Conflicts:      generic-release-cloud
+Conflicts:      generic-release-nonproduct
+Conflicts:      generic-release-workstation
+
+%description server
+Provides a base package for Generic Server-specific configuration files to
+depend on.
+
+%package workstation
+Summary:        Base package for Generic Workstation-specific default configurations
+Provides:       system-release-workstation
+Provides:       system-release-workstation(%{version})
+Provides:       system-release-product
+Requires:       generic-release = %{version}-%{release}
+Conflicts:      generic-release-cloud
+Conflicts:      generic-release-server
+Conflicts:      generic-release-nonproduct
+
+%description workstation
+Provides a base package for Generic Workstation-specific configuration files to
+depend on.
 
 %package notes
 Summary:	Release Notes
@@ -76,6 +143,11 @@ cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%fc%{dist_version}		1
 EOF
 
+# Add Product-specific presets
+mkdir -p %{buildroot}%{_prefix}/lib/systemd/system-preset/
+# Fedora Server
+install -m 0644 %{SOURCE1} %{buildroot}%{_prefix}/lib/systemd/system-preset/80-server.preset
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -95,9 +167,29 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc README.Generic-Release-Notes
 
+%files nonproduct
+%{!?_licensedir:%global license %%doc}
+%license LICENSE
+
+%files cloud
+%{!?_licensedir:%global license %%doc}
+%license LICENSE
+
+%files server
+%{!?_licensedir:%global license %%doc}
+%license LICENSE
+%{_prefix}/lib/systemd/system-preset/80-server.preset
+
+%files workstation
+%{!?_licensedir:%global license %%doc}
+%license LICENSE
+
 %changelog
+* Tue Oct 21 2014 Tom Callaway <spot@fedoraproject.org> - 22-0.2
+- add productization (it is the foooooture)
+
 * Thu Aug 07 2014 Dennis Gilmore <dennis@ausil.us> - 22-0.1
-- setup for f22, Require fedora-repos and no longer ship repo files
+- Require fedora-repos and no longer ship repo files
 
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
