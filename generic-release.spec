@@ -17,7 +17,7 @@ Provides:	system-release
 Provides:	system-release(release) = %{version}
 Requires:       system-release-product
 # Comment this next Requires out if we're building for a non-rawhide target
-# Requires:	fedora-repos-rawhide
+Requires:	fedora-repos-rawhide
 Requires:	fedora-repos
 Obsoletes:	generic-release-rawhide <= 21-5
 BuildArch:	noarch
