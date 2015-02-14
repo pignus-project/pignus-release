@@ -4,7 +4,7 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	23
-Release:	0.3
+Release:	0.4
 License:	MIT
 Group:		System Environment/Base
 Source0:	LICENSE
@@ -188,6 +188,12 @@ rm -rf $RPM_BUILD_ROOT
 %license LICENSE
 
 %changelog
+* Sat Feb 14 2015 Bruno Wolff III <bruno@wolff.to> - 23-0.4
+- Fix up change log
+
+* Sat Feb 14 2015 Bruno Wolff III <bruno@wolff.to> - 23-0.3
+- Rawhide is now 23
+
 * Tue Oct 21 2014 Tom Callaway <spot@fedoraproject.org> - 22-0.3
 - add versioned provide for system-release(VERSION)
 
