@@ -1,9 +1,9 @@
 %define release_name Generic
-%define dist_version 21
+%define dist_version 23
 
 Summary:	Generic release files
 Name:		generic-release
-Version:	22
+Version:	23
 Release:	0.3
 License:	MIT
 Group:		System Environment/Base
