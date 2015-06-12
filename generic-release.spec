@@ -11,6 +11,9 @@ Source0:        LICENSE
 Source1:        README.developers
 Source2:        README.Generic-Release-Notes
 Source3:        README.license
+Source4:        85-display-manager.preset
+Source5:        90-default.preset
+Source6:        99-default-disable.preset
 Obsoletes:      redhat-release
 Provides:       redhat-release
 Provides:       system-release
@@ -47,25 +50,24 @@ package. Please note that there is no actual useful content here.
 
 %prep
 %setup -c -T
-cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} .
+cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} .
 
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc
-echo "Generic release %{version} (%{release_name})" > $RPM_BUILD_ROOT/etc/fedora-release
-echo "cpe:/o:generic:generic:%{version}" > $RPM_BUILD_ROOT/etc/system-release-cpe
-cp -p $RPM_BUILD_ROOT/etc/fedora-release $RPM_BUILD_ROOT/etc/issue
-echo "Kernel \r on an \m (\l)" >> $RPM_BUILD_ROOT/etc/issue
-cp -p $RPM_BUILD_ROOT/etc/issue $RPM_BUILD_ROOT/etc/issue.net
-echo >> $RPM_BUILD_ROOT/etc/issue
-ln -s fedora-release $RPM_BUILD_ROOT/etc/redhat-release
-ln -s fedora-release $RPM_BUILD_ROOT/etc/system-release
+install -d %{buildroot}/etc
+echo "Generic release %{version} (%{release_name})" > %{buildroot}/etc/fedora-release
+echo "cpe:/o:generic:generic:%{version}" > %{buildroot}/etc/system-release-cpe
+cp -p %{buildroot}/etc/fedora-release %{buildroot}/etc/issue
+echo "Kernel \r on an \m (\l)" >> %{buildroot}/etc/issue
+cp -p %{buildroot}/etc/issue %{buildroot}/etc/issue.net
+echo >> %{buildroot}/etc/issue
+ln -s fedora-release %{buildroot}/etc/redhat-release
+ln -s fedora-release %{buildroot}/etc/system-release
 
-mkdir -p $RPM_BUILD_ROOT/usr/lib/
+mkdir -p %{buildroot}/usr/lib/systemd/system-preset/
 
-cat << EOF >>$RPM_BUILD_ROOT/usr/lib/os-release
+cat << EOF >>%{buildroot}/usr/lib/os-release
 NAME=Generic
 VERSION="%{version} (%{release_name})"
 ID=generic
@@ -75,11 +77,11 @@ ANSI_COLOR="0;34"
 CPE_NAME="cpe:/o:generic:generic:%{version}"
 EOF
 # Create the symlink for /etc/os-release
-ln -s ../usr/lib/os-release $RPM_BUILD_ROOT/etc/os-release
+ln -s ../usr/lib/os-release %{buildroot}/etc/os-release
 
 # Set up the dist tag macros
-install -d -m 755 $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d
-cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
+install -d -m 755 %{buildroot}%{_rpmconfigdir}/macros.d
+cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 # dist macros.
 
 %%fedora		%{dist_version}
@@ -88,14 +90,13 @@ cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
 EOF
 
 # Add presets
-mkdir -p %{buildrooit}%{_prefix}/lib/systemd/system-preset/
 # Default system wide
 install -m 0644 85-display-manager.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -m 0644 90-default.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -m 0644 99-default-disable.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
