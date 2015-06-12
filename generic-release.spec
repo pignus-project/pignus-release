@@ -1,98 +1,35 @@
 %define release_name Generic
 %define dist_version 23
 
-Summary:	Generic release files
-Name:		generic-release
-Version:	23
-Release:	0.4
-License:	MIT
-Group:		System Environment/Base
-Source0:	LICENSE
-Source1:	README.developers
-Source2:	README.Generic-Release-Notes
-Source3:	80-server.preset
-Source4:	README.license
-Obsoletes:	redhat-release
-Provides:	redhat-release
-Provides:	system-release
-Provides:	system-release(%{version})
-Requires:       system-release-product
+Summary:        Generic release files
+Name:           generic-release
+Version:        23
+Release:        0.5
+License:        MIT
+Group:	        System Environment/Base
+Source0:        LICENSE
+Source1:        README.developers
+Source2:        README.Generic-Release-Notes
+Source3:        README.license
+Obsoletes:      redhat-release
+Provides:       redhat-release
+Provides:       system-release
+Provides:       system-release(%{version})
 # Comment this next Requires out if we're building for a non-rawhide target
-Requires:	fedora-repos-rawhide
-Requires:	fedora-repos(%{version})
-Obsoletes:	generic-release-rawhide <= 21-5
-BuildArch:	noarch
-Conflicts:	fedora-release
+Requires:       fedora-repos-rawhide
+Requires:       fedora-repos(%{version})
+Obsoletes:      generic-release-rawhide <= 21-5
+Obsoletes:      generic-release-cloud <= 23-0.4
+Obsoletes:      generic-release-server <= 23-0.4
+Obsoletes:      generic-release-workstatione <= 23-0.4
+BuildArch:      noarch
+Conflicts:      fedora-release
 
 %description
 Generic release files such as yum configs and various /etc/ files that
 define the release. This package explicitly is a replacement for the 
 trademarked release package, if you are unable for any reason to abide by the 
 trademark restrictions on that release package.
-
-%package nonproduct
-Summary:        Base package for non-product-specific default configurations
-Provides:       system-release-nonproduct
-Provides:       system-release-nonproduct(%{version})
-Provides:       system-release-product
-# turned out to be a bad name
-Requires:       generic-release = %{version}-%{release}
-Conflicts:      generic-release-cloud
-Conflicts:      generic-release-server
-Conflicts:      generic-release-workstation
-
-%description nonproduct
-ITS NOT A PRODUCT. Er, em, what I meant to say was: This package 
-provides a base package for non-product-specific configuration files to
-depend on.
-
-%package cloud
-Summary:        Base package for Generic Cloud-specific default configurations
-Provides:       system-release-cloud
-Provides:       system-release-cloud(%{version})
-Provides:       system-release-product
-Requires:       generic-release = %{version}-%{release}
-Conflicts:      generic-release-server
-Conflicts:      generic-release-nonproduct
-Conflicts:      generic-release-workstation
-
-%description cloud
-Provides a base package for Generic Cloud-specific configuration files to
-depend on.
-
-%package server
-Summary:        Base package for Generic Server-specific default configurations
-Provides:       system-release-server
-Provides:       system-release-server(%{version})
-Provides:       system-release-product
-Requires:       generic-release = %{version}-%{release}
-#Inheriting Fedora's Requires. You don't like em? Make your own -release-server package.
-Requires:       systemd
-Requires:       cockpit
-Requires:       rolekit
-Requires(post): sed
-Requires(post): systemd
-Conflicts:      generic-release-cloud
-Conflicts:      generic-release-nonproduct
-Conflicts:      generic-release-workstation
-
-%description server
-Provides a base package for Generic Server-specific configuration files to
-depend on.
-
-%package workstation
-Summary:        Base package for Generic Workstation-specific default configurations
-Provides:       system-release-workstation
-Provides:       system-release-workstation(%{version})
-Provides:       system-release-product
-Requires:       generic-release = %{version}-%{release}
-Conflicts:      generic-release-cloud
-Conflicts:      generic-release-server
-Conflicts:      generic-release-nonproduct
-
-%description workstation
-Provides a base package for Generic Workstation-specific configuration files to
-depend on.
 
 %package notes
 Summary:	Release Notes
@@ -110,7 +47,7 @@ package. Please note that there is no actual useful content here.
 
 %prep
 %setup -c -T
-cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE4} .
+cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} .
 
 %build
 
@@ -126,7 +63,7 @@ echo >> $RPM_BUILD_ROOT/etc/issue
 ln -s fedora-release $RPM_BUILD_ROOT/etc/redhat-release
 ln -s fedora-release $RPM_BUILD_ROOT/etc/system-release
 
-cat << EOF >>$RPM_BUILD_ROOT/etc/os-release
+cat << EOF >>$RPM_BUILD_ROOT/usr/lib/os-release
 NAME=Generic
 VERSION="%{version} (%{release_name})"
 ID=generic
@@ -135,6 +72,8 @@ PRETTY_NAME="Generic %{version} (%{release_name})"
 ANSI_COLOR="0;34"
 CPE_NAME="cpe:/o:generic:generic:%{version}"
 EOF
+# Create the symlink for /etc/os-release
+ln -s ../usr/lib/os-release $RPM_BUILD_ROOT/etc/os-release
 
 # Set up the dist tag macros
 install -d -m 755 $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d
@@ -146,10 +85,12 @@ cat >> $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%fc%{dist_version}		1
 EOF
 
-# Add Product-specific presets
-mkdir -p %{buildroot}%{_prefix}/lib/systemd/system-preset/
-# Fedora Server
-install -m 0644 %{SOURCE3} %{buildroot}%{_prefix}/lib/systemd/system-preset/80-server.preset
+# Add presets
+mkdir -p %{buildrooit}%{_prefix}/lib/systemd/system-preset/
+# Default system wide
+install -m 0644 85-display-manager.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
+install -m 0644 90-default.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
+install -m 0644 99-default-disable.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -157,7 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc LICENSE README.license
-%config %attr(0644,root,root) /etc/os-release
+%config %attr(0644,root,root) /usr/lib/os-release
+/etc/os-release
 %config %attr(0644,root,root) /etc/fedora-release
 /etc/redhat-release
 /etc/system-release
@@ -165,29 +107,19 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
 %attr(0644,root,root) %{_rpmconfigdir}/macros.d/macros.dist
+%{_prefix}/lib/systemd/system-preset/85-display-manager.preset
+%{_prefix}/lib/systemd/system-preset/90-default.preset
+%{_prefix}/lib/systemd/system-preset/99-default-disable.preset
 
 %files notes
 %defattr(-,root,root,-)
 %doc README.Generic-Release-Notes
 
-%files nonproduct
-%{!?_licensedir:%global license %%doc}
-%license LICENSE
-
-%files cloud
-%{!?_licensedir:%global license %%doc}
-%license LICENSE
-
-%files server
-%{!?_licensedir:%global license %%doc}
-%license LICENSE
-%{_prefix}/lib/systemd/system-preset/80-server.preset
-
-%files workstation
-%{!?_licensedir:%global license %%doc}
-%license LICENSE
-
 %changelog
+* Thu Jun 11 2015 Dennis Gilmore <dennis@ausil.us> - 23-0.5
+- add system preset files
+- drop product sub-packages
+
 * Sat Feb 14 2015 Bruno Wolff III <bruno@wolff.to> - 23-0.4
 - Fix up change log
 
