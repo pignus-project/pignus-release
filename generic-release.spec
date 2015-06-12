@@ -63,6 +63,8 @@ echo >> $RPM_BUILD_ROOT/etc/issue
 ln -s fedora-release $RPM_BUILD_ROOT/etc/redhat-release
 ln -s fedora-release $RPM_BUILD_ROOT/etc/system-release
 
+mkdir -p $RPM_BUILD_ROOT/usr/lib/
+
 cat << EOF >>$RPM_BUILD_ROOT/usr/lib/os-release
 NAME=Generic
 VERSION="%{version} (%{release_name})"
