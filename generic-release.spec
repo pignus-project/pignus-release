@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        23
-Release:        0.5
+Release:        0.6
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 23-0.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Thu Jun 11 2015 Dennis Gilmore <dennis@ausil.us> - 23-0.5
 - add system preset files
 - drop product sub-packages
