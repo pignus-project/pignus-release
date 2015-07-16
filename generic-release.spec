@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        23
-Release:        0.6
+Release:        0.7
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -19,7 +19,7 @@ Provides:       redhat-release
 Provides:       system-release
 Provides:       system-release(%{version})
 # Comment this next Requires out if we're building for a non-rawhide target
-Requires:       fedora-repos-rawhide
+# Requires:       fedora-repos-rawhide
 Requires:       fedora-repos(%{version})
 Obsoletes:      generic-release-rawhide <= 21-5
 Obsoletes:      generic-release-cloud <= 23-0.4
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Wed Jul 15 2015 Bruno Wolff III <bruno@wolff.to> - 23-0.7
+- f23 has branched off from rawhide
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 23-0.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
