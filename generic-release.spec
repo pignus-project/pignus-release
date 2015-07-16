@@ -1,10 +1,10 @@
 %define release_name Generic
-%define dist_version 23
+%define dist_version 24
 
 Summary:        Generic release files
 Name:           generic-release
-Version:        23
-Release:        0.6
+Version:        24
+Release:        0.1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Wed Jul 15 2015 Bruno Wolff III <bruno@wolff.to> - 24-0.1
+- Rawhide is now f24
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 23-0.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
