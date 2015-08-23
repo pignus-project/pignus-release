@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        24
-Release:        0.1
+Release:        0.2
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -24,7 +24,7 @@ Requires:       fedora-repos(%{version})
 Obsoletes:      generic-release-rawhide <= 21-5
 Obsoletes:      generic-release-cloud <= 23-0.4
 Obsoletes:      generic-release-server <= 23-0.4
-Obsoletes:      generic-release-workstatione <= 23-0.4
+Obsoletes:      generic-release-workstation <= 23-0.4
 BuildArch:      noarch
 Conflicts:      fedora-release
 
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Sat Aug 22 2015 Bruno Wolff III <bruno@wolff.to> - 24-0.2
+- Fix typo in obsoletes
+
 * Wed Jul 15 2015 Bruno Wolff III <bruno@wolff.to> - 24-0.1
 - Rawhide is now f24
 
