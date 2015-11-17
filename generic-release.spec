@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        23
-Release:        0.8
+Release:        1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Mon Nov 16 2015 Bruno Wolff III <bruno@wolff.to> - 23-1
+- Need a post release release string for anaconda
+
 * Sat Aug 22 2015 Bruno Wolff III <bruno@wolff.to> - 23-0.8
 - Fix typo in obsoletes
 
