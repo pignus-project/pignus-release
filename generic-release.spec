@@ -1,10 +1,10 @@
-%define release_name Generic
-%define dist_version 24
+%global release_name Generic
+%global dist_version 24
 
 Summary:        Generic release files
 Name:           generic-release
 Version:        24
-Release:        0.2
+Release:        0.3
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -100,7 +100,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README.license
+%license LICENSE README.license
 %config %attr(0644,root,root) /usr/lib/os-release
 /etc/os-release
 %config %attr(0644,root,root) /etc/fedora-release
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Tue Jan 19 2016 Tom Callaway <spot@fedoraproject.org> - 24-0.3
+- spec file cleanups
+
 * Sat Aug 22 2015 Bruno Wolff III <bruno@wolff.to> - 24-0.2
 - Fix typo in obsoletes
 
