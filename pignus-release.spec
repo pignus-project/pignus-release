@@ -1,10 +1,10 @@
-%global release_name Generic
+%global release_name Pignus
 %global dist_version 26
 
-Summary:        Generic release files
-Name:           generic-release
+Summary:        Pignus release files
+Name:           pignus-release
 Version:        26
-Release:        0.1
+Release:        0.1.pi1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -19,20 +19,19 @@ Provides:       redhat-release
 Provides:       system-release
 Provides:       system-release(%{version})
 # Comment this next Requires out if we're building for a non-rawhide target
-Requires:       fedora-repos-rawhide
-Requires:       fedora-repos(%{version})
-Obsoletes:      generic-release-rawhide <= 21-5
-Obsoletes:      generic-release-cloud <= 23-0.4
-Obsoletes:      generic-release-server <= 23-0.4
-Obsoletes:      generic-release-workstation <= 23-0.4
+#Requires:       pignus-repos-rawhide
+Requires:       pignus-repos(%{version})
+Obsoletes:      pignus-release-rawhide <= 21-5
+Obsoletes:      pignus-release-cloud <= 23-0.4
+Obsoletes:      pignus-release-server <= 23-0.4
+Obsoletes:      pignus-release-workstation <= 23-0.4
 BuildArch:      noarch
 Conflicts:      fedora-release
+Conflicts:      generic-release
 
 %description
-Generic release files such as yum configs and various /etc/ files that
-define the release. This package explicitly is a replacement for the 
-trademarked release package, if you are unable for any reason to abide by the 
-trademark restrictions on that release package.
+Pignus release files such as yum configs and various /etc/ files that
+define the release.
 
 %package notes
 Summary:	Release Notes
@@ -40,12 +39,11 @@ License:	Open Publication
 Group:		System Environment/Base
 Provides:	system-release-notes = %{version}-%{release}
 Conflicts:	fedora-release-notes
+Conflicts:	generic-release-notes
 
 %description notes
-Generic release notes package. This package explicitly is a replacement 
-for the trademarked release-notes package, if you are unable for any reason
-to abide by the trademark restrictions on that release-notes 
-package. Please note that there is no actual useful content here.
+Pignus release notes package.
+Please note that there is no actual useful content here.
 
 
 %prep
@@ -56,25 +54,25 @@ cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE
 
 %install
 install -d %{buildroot}/etc
-echo "Generic release %{version} (%{release_name})" > %{buildroot}/etc/fedora-release
-echo "cpe:/o:generic:generic:%{version}" > %{buildroot}/etc/system-release-cpe
-cp -p %{buildroot}/etc/fedora-release %{buildroot}/etc/issue
+echo "Generic %{version} (%{release_name})" > %{buildroot}/etc/system-release
+echo "cpe:/o:pignus:pignus:%{version}" > %{buildroot}/etc/system-release-cpe
+cp -p %{buildroot}/etc/system-release %{buildroot}/etc/issue
 echo "Kernel \r on an \m (\l)" >> %{buildroot}/etc/issue
 cp -p %{buildroot}/etc/issue %{buildroot}/etc/issue.net
 echo >> %{buildroot}/etc/issue
-ln -s fedora-release %{buildroot}/etc/redhat-release
-ln -s fedora-release %{buildroot}/etc/system-release
+ln -s system-release %{buildroot}/etc/redhat-release
+ln -s system-release %{buildroot}/etc/fedora-release
 
 mkdir -p %{buildroot}/usr/lib/systemd/system-preset/
 
 cat << EOF >>%{buildroot}/usr/lib/os-release
-NAME=Generic
+NAME=Pignus
 VERSION="%{version} (%{release_name})"
-ID=generic
+ID=pignus
 VERSION_ID=%{version}
-PRETTY_NAME="Generic %{version} (%{release_name})"
+PRETTY_NAME="Pignus %{version} (%{release_name})"
 ANSI_COLOR="0;34"
-CPE_NAME="cpe:/o:generic:generic:%{version}"
+CPE_NAME="cpe:/o:pignus:pignus:%{version}"
 EOF
 # Create the symlink for /etc/os-release
 ln -s ../usr/lib/os-release %{buildroot}/etc/os-release
@@ -103,9 +101,9 @@ rm -rf %{buildroot}
 %license LICENSE README.license
 %config %attr(0644,root,root) /usr/lib/os-release
 /etc/os-release
-%config %attr(0644,root,root) /etc/fedora-release
+%config %attr(0644,root,root) /etc/system-release
 /etc/redhat-release
-/etc/system-release
+/etc/fedora-release
 %config %attr(0644,root,root) /etc/system-release-cpe
 %config(noreplace) %attr(0644,root,root) /etc/issue
 %config(noreplace) %attr(0644,root,root) /etc/issue.net
@@ -119,6 +117,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Sat Apr 08 2017 Lubomir Rintel <lkudrak@v3.sk> - 26-0.1.pi1
+- Turn generic-release into pignus-release
+
 * Thu Aug 04 2016 Bruno Wolff III <bruno@wolff.to> - 26-0.1
 - Rawhide is now 26
 
