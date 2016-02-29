@@ -4,7 +4,7 @@
 Summary:        Pignus release files
 Name:           pignus-release
 Version:        23
-Release:        1
+Release:        1_1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -83,7 +83,7 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 # dist macros.
 
 %%fedora		%{dist_version}
-%%dist		.fc%{dist_version}
+%%dist		.fc%{dist_version}_1
 %%fc%{dist_version}		1
 EOF
 
