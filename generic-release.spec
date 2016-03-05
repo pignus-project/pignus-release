@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Sat Mar 05 2016 Bruno Wolff III <bruno@wolff.to> - 25-0.1
+- Rawhide is now 25
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 24-0.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
