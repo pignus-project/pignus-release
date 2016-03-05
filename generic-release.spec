@@ -3,8 +3,8 @@
 
 Summary:        Generic release files
 Name:           generic-release
-Version:        24
-Release:        0.4
+Version:        25
+Release:        0.1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
