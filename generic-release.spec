@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        24
-Release:        0.4
+Release:        0.5
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Sat Mar 05 2016 Bruno Wolff III <bruno@wolff.to> - 24-0.5
+- f24 isn't rawhide any more
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 24-0.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
