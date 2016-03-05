@@ -19,7 +19,7 @@ Provides:       redhat-release
 Provides:       system-release
 Provides:       system-release(%{version})
 # Comment this next Requires out if we're building for a non-rawhide target
-Requires:       fedora-repos-rawhide
+# Requires:       fedora-repos-rawhide
 Requires:       fedora-repos(%{version})
 Obsoletes:      generic-release-rawhide <= 21-5
 Obsoletes:      generic-release-cloud <= 23-0.4
