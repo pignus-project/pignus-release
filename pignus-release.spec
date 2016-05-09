@@ -111,7 +111,7 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 # dist macros.
 
 %%fedora		%{dist_version}
-%%dist		.fc%{dist_version}
+%%dist		.fc23_90
 %%fc%{dist_version}		1
 EOF
 
