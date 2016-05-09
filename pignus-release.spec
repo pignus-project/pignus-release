@@ -4,7 +4,7 @@
 Summary:        Pignus release files
 Name:           pignus-release
 Version:        24
-Release:        0.5
+Release:        0.5.pi1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -26,10 +26,12 @@ Source670:      pigpkg.conf
 
 # Pignus mock configuration
 Source671:      pignus-23-armv6hl.cfg
+Source672:      pignus-24-armv6hl.cfg
 
 # Pignus mash configuration
-Source672:      pignus-23.base48.mash
-Source673:      mash.base48.conf
+Source681:      pignus-23.base48.mash
+Source682:      pignus-24.base48.mash
+Source690:      mash.base48.conf
 
 Obsoletes:      redhat-release
 Provides:       redhat-release
@@ -137,12 +139,12 @@ install -m 0644 %{SOURCE670} %{buildroot}%{_sysconfdir}/rpkg/pigpkg.conf
 
 # Pignus mock configuration
 install -d %{buildroot}%{_sysconfdir}/mock
-install -m 0644 %{SOURCE671} %{buildroot}%{_sysconfdir}/mock/pignus-23-armv6hl.cfg
+install -m 0644 %{SOURCE671} %{SOURCE672} %{buildroot}%{_sysconfdir}/mock/
 
 # Pignus mash configuration
 install -d %{buildroot}%{_sysconfdir}/mash
-install -m 0644 %{SOURCE672} %{buildroot}%{_sysconfdir}/mash/pignus-23.base48.mash
-install -m 0644 %{SOURCE673} %{buildroot}%{_sysconfdir}/mash/mash.base48.conf
+install -m 0644 %{SOURCE681} %{SOURCE682} %{buildroot}%{_sysconfdir}/mash/
+install -m 0644 %{SOURCE690} %{buildroot}%{_sysconfdir}/mash/mash.base48.conf
 
 %clean
 rm -rf %{buildroot}
@@ -177,13 +179,13 @@ rm -rf %{buildroot}
 %{_bindir}/pignus-koji
 %{_bindir}/pigpkg
 %dir %{_sysconfdir}/mock
-%{_sysconfdir}/mock/pignus-23-armv6hl.cfg
+%{_sysconfdir}/mock/pignus-*-armv6hl.cfg
 %dir %{_sysconfdir}/mash
-%{_sysconfdir}/mash/pignus-23.base48.mash
+%{_sysconfdir}/mash/pignus-*.base48.mash
 %{_sysconfdir}/mash/mash.base48.conf
 
 %changelog
-* Mon May 09 2016 Lubomir Rintel <lkudrak@v3.sk> - 24-0.5
+* Mon May 09 2016 Lubomir Rintel <lkudrak@v3.sk> - 24-0.5.pi1
 - Turn generic-release into pignus-release
 - Add a pignus-devel subpackage
 
