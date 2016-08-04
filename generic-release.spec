@@ -1,5 +1,5 @@
 %global release_name Generic
-%global dist_version 24
+%global dist_version 25
 
 Summary:        Generic release files
 Name:           generic-release
