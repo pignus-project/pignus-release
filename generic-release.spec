@@ -1,9 +1,9 @@
 %global release_name Generic
-%global dist_version 24
+%global dist_version 26
 
 Summary:        Generic release files
 Name:           generic-release
-Version:        25
+Version:        26
 Release:        0.1
 License:        MIT
 Group:	        System Environment/Base
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Thu Aug 04 2016 Bruno Wolff III <bruno@wolff.to> - 26-0.1
+- Rawhide is now 26
+
 * Sat Mar 05 2016 Bruno Wolff III <bruno@wolff.to> - 25-0.1
 - Rawhide is now 25
 
