@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        25
-Release:        0.1
+Release:        0.2
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -19,7 +19,7 @@ Provides:       redhat-release
 Provides:       system-release
 Provides:       system-release(%{version})
 # Comment this next Requires out if we're building for a non-rawhide target
-Requires:       fedora-repos-rawhide
+#Requires:       fedora-repos-rawhide
 Requires:       fedora-repos(%{version})
 Obsoletes:      generic-release-rawhide <= 21-5
 Obsoletes:      generic-release-cloud <= 23-0.4
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Thu Aug 04 2016 Bruno Wolff III <bruno@wolff.to> - 25-0.2
+- f25 is no longer rawhide
+
 * Sat Mar 05 2016 Bruno Wolff III <bruno@wolff.to> - 25-0.1
 - Rawhide is now 25
 
