@@ -4,7 +4,7 @@
 Summary:        Generic release files
 Name:           generic-release
 Version:        25
-Release:        0.2
+Release:        1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -119,6 +119,10 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %changelog
+* Thu Nov 03 2016 Mohan Boddu <mboddu@redhat.com> - 25-1
+- Setup for F25 final
+- Sync presets from fedora-release
+
 * Thu Aug 04 2016 Bruno Wolff III <bruno@wolff.to> - 25-0.2
 - f25 is no longer rawhide
 
