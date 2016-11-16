@@ -28,10 +28,12 @@ Source670:      pigpkg.conf
 # Pignus mock configuration
 Source671:      pignus-23-armv6hl.cfg
 Source672:      pignus-24-armv6hl.cfg
+Source673:      pignus-25-armv6hl.cfg
 
 # Pignus mash configuration
 Source681:      pignus-23.base48.mash
 Source682:      pignus-24.base48.mash
+Source683:      pignus-25.base48.mash
 Source690:      mash.base48.conf
 
 Obsoletes:      redhat-release
@@ -140,11 +142,11 @@ install -m 0644 %{SOURCE670} %{buildroot}%{_sysconfdir}/rpkg/pigpkg.conf
 
 # Pignus mock configuration
 install -d %{buildroot}%{_sysconfdir}/mock
-install -m 0644 %{SOURCE671} %{SOURCE672} %{buildroot}%{_sysconfdir}/mock/
+install -m 0644 %{SOURCE671} %{SOURCE672} %{SOURCE673} %{buildroot}%{_sysconfdir}/mock/
 
 # Pignus mash configuration
 install -d %{buildroot}%{_sysconfdir}/mash
-install -m 0644 %{SOURCE681} %{SOURCE682} %{buildroot}%{_sysconfdir}/mash/
+install -m 0644 %{SOURCE681} %{SOURCE682} %{SOURCE683} %{buildroot}%{_sysconfdir}/mash/
 install -m 0644 %{SOURCE690} %{buildroot}%{_sysconfdir}/mash/mash.base48.conf
 
 %clean
