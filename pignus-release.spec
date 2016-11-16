@@ -4,7 +4,7 @@
 Summary:        Pignus release files
 Name:           pignus-release
 Version:        25
-Release:        0.5.pi1
+Release:        0.6.pi1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
