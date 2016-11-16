@@ -1,0 +1,28 @@
+# mash config file
+
+[pignus-25]
+configdir = /etc/mash
+buildhost = http://koji.base48.cz/kojihub
+repodir = file:///mnt/koji
+use_sqlite = True
+use_repoview = False
+
+rpm_path = %(arch)s/os/Packages
+repodata_path = %(arch)s/os/
+source_path = source/SRPMS
+debuginfo = True
+multilib = False
+tag = f25
+inherit = False
+strict_keys = False
+#keys =
+#repoviewurl = https://pignus.computer/pub/linux/pignus/releases/25/Everything/%(arch)s/os/
+#repoviewtitle = "Pignus 25 - %(arch)s"
+arches = armhfp
+#delta = True
+delta = False
+#max_delta_rpm_age = 604800
+#delta_workers = 8
+# Change distro_tags as pignus-release version gets bumped
+distro_tags = cpe:/o:base48:pignus:25 Twenty Five
+hash_packages = True
