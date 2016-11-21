@@ -4,7 +4,7 @@
 Summary:        Pignus release files
 Name:           pignus-release
 Version:        25
-Release:        0.6.pi1
+Release:        0.7.pi1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -187,7 +187,7 @@ rm -rf %{buildroot}
 %{_sysconfdir}/mash/mash.base48.conf
 
 %changelog
-* Wed Nov 16 2016 Lubomir Rintel <lkudrak@v3.sk> - 25-0.5.pi1
+* Wed Nov 16 2016 Lubomir Rintel <lkudrak@v3.sk> - 25-0.7.pi1
 - Turn generic-release into pignus-release
 - Add a pignus-devel subpackage
 
