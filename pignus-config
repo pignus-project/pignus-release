@@ -1,4 +1,4 @@
-[koji]
+[pignus]
 
 ;configuration for koji cli tool
 
@@ -11,14 +11,17 @@ weburl = http://koji.base48.cz/koji
 ;url of package download site
 topurl = http://koji.base48.cz/kojifiles
 
-
 ;configuration for SSL athentication
 
 ;client certificate
 cert = ~/.pignus.cert
 
 ;certificate of the CA that issued the client certificate
-ca = /etc/koji/pignus-upload-ca.cert
+ca = /etc/koji.conf.d/pignus-upload-ca.cert
 
 ;certificate of the CA that issued the HTTP server certificate
-serverca = /etc/koji/pignus-server-ca.cert
+serverca = /etc/koji.conf.d/pignus-server-ca.cert
+
+authtype = ssl
+use_old_ssl = yes
+no_ssl_verify = yes

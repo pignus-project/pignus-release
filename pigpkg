@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec /usr/bin/fedpkg -C /etc/rpkg/pigpkg.conf "$@"
+exec /usr/bin/fedpkg --config /etc/rpkg/pigpkg.conf "$@"

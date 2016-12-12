@@ -1,0 +1,2 @@
+#!/bin/sh
+exec koji --config /etc/koji.conf.d/pignus-config --profile pignus "$@"

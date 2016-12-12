@@ -1,10 +1,10 @@
-%global release_name Pignus
+%global release_name Von Neumann
 %global dist_version 25
 
 Summary:        Pignus release files
 Name:           pignus-release
 Version:        25
-Release:        0.10.pi1
+Release:        0.11.pi1
 License:        MIT
 Group:	        System Environment/Base
 Source0:        LICENSE
@@ -16,6 +16,7 @@ Source5:        90-default.preset
 Source6:        99-default-disable.preset
 
 # Pignus Koji configuration
+Source665:      pignus-koji
 Source666:      pignus-config
 source667:      pignus-upload-ca.cert
 Source668:      pignus-server-ca.cert
@@ -127,11 +128,11 @@ install -m 0644 99-default-disable.preset %{buildroot}%{_prefix}/lib/systemd/sys
 
 # Pignus Koji configuration
 install -d %{buildroot}%{_bindir}
-ln -sf arm-koji %{buildroot}%{_bindir}/pignus-koji
-install -d %{buildroot}%{_sysconfdir}/koji
-install -m 0644 %{SOURCE666} %{buildroot}%{_sysconfdir}/koji/pignus-config
-install -m 0644 %{SOURCE667} %{buildroot}%{_sysconfdir}/koji/pignus-upload-ca.cert
-install -m 0644 %{SOURCE668} %{buildroot}%{_sysconfdir}/koji/pignus-server-ca.cert
+install -m 0755 %{SOURCE665} %{buildroot}%{_bindir}/pignus-koji
+install -d %{buildroot}%{_sysconfdir}/koji.conf.d
+install -m 0644 %{SOURCE666} %{buildroot}%{_sysconfdir}/koji.conf.d/pignus-config
+install -m 0644 %{SOURCE667} %{buildroot}%{_sysconfdir}/koji.conf.d/pignus-upload-ca.cert
+install -m 0644 %{SOURCE668} %{buildroot}%{_sysconfdir}/koji.conf.d/pignus-server-ca.cert
 
 # Pigpkg configuration
 install -d %{buildroot}%{_bindir}
@@ -172,10 +173,10 @@ rm -rf %{buildroot}
 %doc README.Generic-Release-Notes
 
 %files -n pignus-devel
-%dir %{_sysconfdir}/koji
-%{_sysconfdir}/koji/pignus-config
-%{_sysconfdir}/koji/pignus-server-ca.cert
-%{_sysconfdir}/koji/pignus-upload-ca.cert
+%dir %{_sysconfdir}/koji.conf.d
+%{_sysconfdir}/koji.conf.d/pignus-config
+%{_sysconfdir}/koji.conf.d/pignus-server-ca.cert
+%{_sysconfdir}/koji.conf.d/pignus-upload-ca.cert
 %dir %{_sysconfdir}/rpkg
 %{_sysconfdir}/rpkg/pigpkg.conf
 %{_bindir}/pignus-koji
