@@ -14,6 +14,22 @@ Source3:        README.license
 Source4:        85-display-manager.preset
 Source5:        90-default.preset
 Source6:        99-default-disable.preset
+
+# Pignus Koji configuration
+Source665:      pignus-koji
+Source666:      pignus-config
+source667:      pignus-upload-ca.cert
+Source668:      pignus-server-ca.cert
+
+# Pigpkg configuration
+Source669:      pigpkg
+Source670:      pigpkg.conf
+
+# Pignus mock configuration
+
+# Pignus mash configuration
+Source673:      mash.base48.conf
+
 Obsoletes:      redhat-release
 Provides:       redhat-release
 Provides:       system-release
@@ -45,6 +61,15 @@ Conflicts:	generic-release-notes
 Pignus release notes package.
 Please note that there is no actual useful content here.
 
+%package -n pignus-devel
+Summary:	Pignus development files
+License:	MIT
+Group:		System Environment/Base
+Requires:       mock koji fedpkg fedora-packager mash
+
+%description -n pignus-devel
+Configuration for Pignus development & release engineering.
+
 
 %prep
 %setup -c -T
@@ -54,7 +79,7 @@ cp -a %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE
 
 %install
 install -d %{buildroot}/etc
-echo "Generic %{version} (%{release_name})" > %{buildroot}/etc/system-release
+echo "Pignus %{version} (%{release_name})" > %{buildroot}/etc/system-release
 echo "cpe:/o:pignus:pignus:%{version}" > %{buildroot}/etc/system-release-cpe
 cp -p %{buildroot}/etc/system-release %{buildroot}/etc/issue
 echo "Kernel \r on an \m (\l)" >> %{buildroot}/etc/issue
@@ -93,6 +118,29 @@ install -m 0644 85-display-manager.preset %{buildroot}%{_prefix}/lib/systemd/sys
 install -m 0644 90-default.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -m 0644 99-default-disable.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 
+# Pignus development
+
+# Pignus Koji configuration
+install -d %{buildroot}%{_bindir}
+install -m 0755 %{SOURCE665} %{buildroot}%{_bindir}/pignus-koji
+install -d %{buildroot}%{_sysconfdir}/koji.conf.d
+install -m 0644 %{SOURCE666} %{buildroot}%{_sysconfdir}/koji.conf.d/pignus-config
+install -m 0644 %{SOURCE667} %{buildroot}%{_sysconfdir}/koji.conf.d/pignus-upload-ca.cert
+install -m 0644 %{SOURCE668} %{buildroot}%{_sysconfdir}/koji.conf.d/pignus-server-ca.cert
+
+# Pigpkg configuration
+install -d %{buildroot}%{_bindir}
+install -m 755 %{SOURCE669} %{buildroot}%{_bindir}/pigpkg
+install -d %{buildroot}%{_sysconfdir}/rpkg
+install -m 0644 %{SOURCE670} %{buildroot}%{_sysconfdir}/rpkg/pigpkg.conf
+
+# Pignus mock configuration
+install -d %{buildroot}%{_sysconfdir}/mock
+
+# Pignus mash configuration
+install -d %{buildroot}%{_sysconfdir}/mash
+install -m 0644 %{SOURCE673} %{buildroot}%{_sysconfdir}/mash/mash.base48.conf
+
 %clean
 rm -rf %{buildroot}
 
@@ -116,9 +164,23 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc README.Generic-Release-Notes
 
+%files -n pignus-devel
+%dir %{_sysconfdir}/koji.conf.d
+%{_sysconfdir}/koji.conf.d/pignus-config
+%{_sysconfdir}/koji.conf.d/pignus-server-ca.cert
+%{_sysconfdir}/koji.conf.d/pignus-upload-ca.cert
+%dir %{_sysconfdir}/rpkg
+%{_sysconfdir}/rpkg/pigpkg.conf
+%{_bindir}/pignus-koji
+%{_bindir}/pigpkg
+%dir %{_sysconfdir}/mock
+%dir %{_sysconfdir}/mash
+%{_sysconfdir}/mash/mash.base48.conf
+
 %changelog
 * Sat Apr 08 2017 Lubomir Rintel <lkudrak@v3.sk> - 26-0.1.pi1
 - Turn generic-release into pignus-release
+- Add a pignus-devel subpackage
 
 * Thu Aug 04 2016 Bruno Wolff III <bruno@wolff.to> - 26-0.1
 - Rawhide is now 26
